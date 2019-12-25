@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            main, #permutation {
+                display: grid;
+                justify-content: center;
+                justify-items: stretch;
+            }
+
+            main {
+                grid-template-columns: 1fr 3fr 2fr;
+            }
+
+            .number {
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+                font-size: 2rem;
+                background-color: lightgrey;
+            }
+
+            .active {
+                background-color: green;
+            }
+        </style>
+        <script defer src=./string.js></script>
+    </head>
+    <body>
+        <main>
+            <section id=controls>
+                <div><label>Size: </label><input id=size type=number step=2 min=1 max=9></div>
+                <div><label>Speed: </label><input id=speed type=number step=100 min=0 max=20000></div>
+                <button id=animate>Watch the fun!</button>
+                <div id=details>
+                    <p>Curr i: <span id=smallest></span></p>
+                    <p>Curr j: <span id=larger></span></p>
+                </div>
+            </section>
+            <section id=permutation></section>
+            <section id=stats>
+                <h2><span id=action></span></h2>
+            </section>
+        </main>
+    </body>
+</html>

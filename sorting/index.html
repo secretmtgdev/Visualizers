@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            main, #visual {
+                display: grid;
+            }
+
+            main {
+                grid-template-columns: 1fr 3fr 1fr;
+            }
+
+            #visual > div {
+                height: 100px;
+                box-sizing: border-box;
+            }
+
+            .default {
+                background-color: red;
+            }
+
+            .swap {
+                background-color: green;
+            }
+
+            #visual > div > div {
+                background-color: white;
+            }
+        </style>
+        <script defer src=./sort.js></script>
+    </head>
+    <body>
+        <header>
+            <h1>Sorting algorithm visualizer</h1>
+        </header>
+        <main>
+            <section id=options>
+                <form id=form>
+                    <div>
+                        <label for=size>Size</label>
+                        <input step="25" id=size type=number name=size placeholder=0 min=0 max=1000><br>
+
+                        <label for=speed>Speed</label>
+                        <input step="10" id=speed type="number" name=speed placeholder="0" min=0 max=1000/>
+                    </div>
+                    <div>
+                        <input type=radio id=bubblesort name=sorting value=bubblesort>
+                        <label for=bubblesort>Bubblesort</label>
+                        <input type=radio id=quicksort name=sorting value=quicksort>
+                        <label for=quicksort>Quicksort</label>
+                    </div>
+                    <div>
+                        <button type=submit>Sort</button>
+                    </div>
+                </form>
+                <pre id=log></pre>
+            </section>
+            <section id=visual></section>
+            <section id=algorithm>
+                <div>
+                    Comparisons made: <span id=comparisons></span>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
