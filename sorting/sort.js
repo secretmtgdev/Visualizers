@@ -1,7 +1,8 @@
 (function() {
     const algorithms = {
-        'bubblesort': bubbleSort,
-        'quicksort': quicksort
+        'bubblesort': BubbleSort,
+        'quicksort': Quicksort,
+        'mergesort': Mergesort
     }
     let size = 100;
     let arr;
@@ -27,13 +28,9 @@
             }
             log.innerText = output;
             event.preventDefault();
+            console.log(algorithm)
             generateArray(algorithms[algorithm])
         }, false);
-        // sort.addEventListener('click', () => {
-        //     let algorithm = 
-        // })
-        //generateArray(bubbleSort);
-        //generateArray(quicksort);
     }
 
     async function generateArray(cb) {
@@ -58,8 +55,26 @@
         await cb();
     }
 
-    async function quicksort() {
+    async function Mergesort() {
+        console.log(arr);
+        await mergeSortHelper(arr, 0, arr.length - 1);
+        console.log(arr);
+    }
+
+    async function Quicksort() {
         await quicksortHelper(arr, 0, arr.length - 1);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// HELPERS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    async function mergeSortHelper(arr, lo, hi) {
+        if(lo < hi) {
+            let mid = lo + Math.floor((hi - lo)/2);
+            await mergeSortHelper(arr, lo, mid);
+            await mergeSortHelper(arr, mid + 1, hi);
+            merge(arr, lo, mid, hi);
+        }
     }
 
     async function quicksortHelper(arr, lo, hi) {
@@ -67,6 +82,40 @@
             let p = await partition(arr, lo, hi);
             await quicksortHelper(arr, lo, p - 1);
             await quicksortHelper(arr, p + 1, hi);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// SUB HELPERS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function merge(arr, lo, mid, hi) {
+        let n1 = mid - lo + 1, n2 = hi - mid;
+        let a = new Array(n1), b = new Array(n2);
+        for(let i = 0; i < n1; i++) a[i] = arr[lo + i];
+        for(let i = 0; i < n2; i++) b[i] = arr[mid + 1 + i];
+
+        let i = 0, j = 0, k = lo;
+        while(i < n1 && j < n2) {
+            if(a[i] <= b[j]) {
+                arr[k] = a[i];
+                i++;
+            } else {
+                arr[k] = b[j]
+                j++;
+            }
+            k++;
+        }
+
+        while(i < n1) {
+            arr[k] = a[i];
+            i++;
+            k++;
+        }
+
+        while(j < n2) {
+            arr[k] = b[j];
+            j++;
+            k++;
         }
     }
 
@@ -107,7 +156,7 @@
         return i + 1;
     }
 
-    async function bubbleSort() {
+    async function BubbleSort() {
         for(let i = 0; i < arr.length - 1; i++) {
             let sorted = true;
             for(let j = 0; j < arr.length - i - 1; j++) {
